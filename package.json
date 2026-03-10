@@ -1,0 +1,189 @@
+{
+  "name": "lokio-ext",
+  "displayName": "Lokio",
+  "description": "VS Code extension for Lokio — code generation, template management, and standards checking",
+  "version": "1.0.0",
+  "publisher": "lokio",
+  "icon": "icons/lokio.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lokio/lokio-ext"
+  },
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Linters",
+    "Snippets"
+  ],
+  "keywords": [
+    "lokio",
+    "code generation",
+    "template",
+    "scaffold",
+    "standards"
+  ],
+  "activationEvents": [
+    "workspaceContains:lokio.yaml",
+    "workspaceContains:lokio/configs.yaml"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "lokio.generate",
+        "title": "Generate from Template",
+        "category": "Lokio",
+        "icon": "$(add)"
+      },
+      {
+        "command": "lokio.check",
+        "title": "Check Repository",
+        "category": "Lokio",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "lokio.sync",
+        "title": "Sync Generated Files",
+        "category": "Lokio",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "lokio.doctor",
+        "title": "Run Doctor",
+        "category": "Lokio",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "lokio.aiCheck",
+        "title": "AI Standards Check",
+        "category": "Lokio",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "lokio.diff",
+        "title": "Preview Sync (Diff)",
+        "category": "Lokio",
+        "icon": "$(diff)"
+      },
+      {
+        "command": "lokio.refresh",
+        "title": "Refresh",
+        "category": "Lokio",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "lokio.generateFromTree",
+        "title": "Generate",
+        "category": "Lokio",
+        "icon": "$(play)"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "lokioExplorer",
+          "name": "Lokio",
+          "icon": "$(code)",
+          "contextualTitle": "Lokio"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "lokioExplorer",
+        "contents": "No Lokio configuration found in this workspace.\n\nRun `lokio init` in your terminal to get started.\n\n[Open Terminal](command:workbench.action.terminal.new)"
+      }
+    ],
+    "languages": [
+      {
+        "id": "lokio",
+        "aliases": [
+          "Lokio Template",
+          "lokio"
+        ],
+        "extensions": [
+          ".lokio"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "lokio",
+        "scopeName": "source.lokio",
+        "path": "./syntaxes/lokio.tmLanguage.json"
+      }
+    ],
+    "configuration": {
+      "title": "Lokio",
+      "properties": {
+        "lokio.executablePath": {
+          "type": "string",
+          "default": "lokio",
+          "description": "Path to the lokio executable. Defaults to 'lokio' (must be in PATH)."
+        },
+        "lokio.checkOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically run 'lokio check' when files are saved."
+        },
+        "lokio.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show Lokio check status in the status bar."
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "lokio.generate",
+          "when": "view == lokioExplorer",
+          "group": "navigation@1"
+        },
+        {
+          "command": "lokio.refresh",
+          "when": "view == lokioExplorer",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "lokio.generateFromTree",
+          "when": "view == lokioExplorer && viewItem == template",
+          "group": "inline"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "lokio.generateFromTree",
+          "when": "false"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "watch": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --sourcemap --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "vsce package",
+    "lint": "eslint src"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

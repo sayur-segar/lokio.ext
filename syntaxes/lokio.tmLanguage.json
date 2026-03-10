@@ -1,0 +1,110 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Lokio Template",
+  "scopeName": "source.lokio",
+  "fileTypes": [".lokio"],
+  "patterns": [
+    { "include": "#ejs-comment-annotation" },
+    { "include": "#ejs-comment" },
+    { "include": "#ejs-output" },
+    { "include": "#ejs-control" },
+    { "include": "#generic-text" }
+  ],
+  "repository": {
+    "ejs-comment-annotation": {
+      "name": "comment.block.lokio-annotation",
+      "begin": "<%#\\s*@lokio",
+      "end": "%>",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.lokio.annotation" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.control.lokio.annotation" }
+      },
+      "patterns": [
+        {
+          "match": "\\b(required|forbidden)\\b",
+          "name": "storage.type.lokio"
+        },
+        {
+          "match": "\\b(danger|warning)\\b",
+          "name": "support.type.lokio.severity"
+        },
+        {
+          "match": "\"[^\"]*\"",
+          "name": "string.quoted.double.lokio"
+        }
+      ]
+    },
+    "ejs-comment": {
+      "name": "comment.block.ejs",
+      "begin": "<%#",
+      "end": "%>",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.comment.begin.ejs" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.comment.end.ejs" }
+      }
+    },
+    "ejs-output": {
+      "name": "meta.embedded.block.ejs.output",
+      "begin": "<%[-=]?",
+      "end": "[-]?%>",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.tag.begin.ejs" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.tag.end.ejs" }
+      },
+      "contentName": "source.js.embedded.ejs",
+      "patterns": [
+        { "include": "#js-helpers" },
+        { "include": "#js-string" },
+        { "include": "#js-keywords" }
+      ]
+    },
+    "ejs-control": {
+      "name": "meta.embedded.block.ejs.control",
+      "begin": "<%",
+      "end": "%>",
+      "beginCaptures": {
+        "0": { "name": "punctuation.definition.tag.begin.ejs" }
+      },
+      "endCaptures": {
+        "0": { "name": "punctuation.definition.tag.end.ejs" }
+      },
+      "contentName": "source.js.embedded.ejs",
+      "patterns": [
+        { "include": "#js-keywords" },
+        { "include": "#js-string" }
+      ]
+    },
+    "js-helpers": {
+      "match": "\\b(camelCase|pascalCase|kebabCase|snakeCase|constantCase|dotCase|pathCase|titleCase|sentenceCase|noSpace|lowercase|uppercase|plural|singular|capitalize|fileNameCase)\\b",
+      "name": "support.function.lokio.helper"
+    },
+    "js-keywords": {
+      "match": "\\b(if|else|for|let|const|var|return|function|of|in|true|false|null|undefined)\\b",
+      "name": "keyword.control.js"
+    },
+    "js-string": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.js",
+          "begin": "\"",
+          "end": "\""
+        },
+        {
+          "name": "string.quoted.single.js",
+          "begin": "'",
+          "end": "'"
+        }
+      ]
+    },
+    "generic-text": {
+      "match": ".+",
+      "name": "text.plain"
+    }
+  }
+}
