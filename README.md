@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="icons/lokio.png" width="128" height="128" alt="Lokio" />
-</p>
-
 <h1 align="center">Lokio for Better Rules</h1>
 
 <p align="center">
