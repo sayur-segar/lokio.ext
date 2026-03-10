@@ -11,3 +11,4 @@ bun.lock
 package-lock.json
 *.vsix
 .env
+Makefile
