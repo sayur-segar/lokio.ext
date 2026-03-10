@@ -1,8 +1,8 @@
 {
   "name": "lokio-ext",
   "displayName": "Lokio",
-  "description": "VS Code extension for Lokio — code generation, template management, and standards checking",
-  "version": "1.0.0",
+  "description": "Lokio Extension for Better Rules — code generation, template management, and standards checking",
+  "version": "1.0.1",
   "publisher": "lokio",
   "icon": "icons/lokio.png",
   "repository": {
