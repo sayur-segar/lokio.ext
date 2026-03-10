@@ -1,6 +1,6 @@
 {
   "name": "lokio-ext",
-  "displayName": "Lokio",
+  "displayName": "Lokio for Better Rules",
   "description": "Lokio Extension for Better Rules — code generation, template management, and standards checking",
   "version": "1.0.1",
   "publisher": "lokio",
